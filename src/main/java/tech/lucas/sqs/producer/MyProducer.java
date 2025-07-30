@@ -16,8 +16,8 @@ public class MyProducer {
     private SqsTemplate sqsTemplate;
 
     public void sendMessageSqs(Object message) {
-        var SQS = "https://localhost.localstack.cloud:4566/000000000000/minha-fila";
-        log.info("Send message {} in queue {}", message, SQS);
+        var SQS = "https://localhost.localstack.cloud:4566/000000000000/fila-teste";
+        log.info("Will Send message {} in queue {}", message, SQS);
         sqsTemplate.send(SQS, message);
         log.info("Message sent successfully!");
     }

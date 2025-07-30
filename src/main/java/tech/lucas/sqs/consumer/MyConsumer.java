@@ -1,7 +1,6 @@
 package tech.lucas.sqs.consumer;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import io.awspring.cloud.sqs.annotation.SnsNotificationMessage;
 import io.awspring.cloud.sqs.annotation.SqsListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,13 +11,24 @@ public class MyConsumer {
 
     Logger log = LoggerFactory.getLogger(MyConsumer.class);
 
-    @SqsListener("minha-fila")
-    public void listen(Object messageQueue) throws JsonProcessingException {
+    @SqsListener("fila-teste")
+    public void listenNotificationSns(@SnsNotificationMessage Message messageQueue) {
         log.info("Start consumer");
-        var objectMapper = new ObjectMapper();
-        var json = objectMapper.writeValueAsString(messageQueue);
-        Message message = objectMapper.readValue(json, Message.class);
-        log.info("Message received: " + message.content());
+        if(messageQueue.content() != null) {
+            log.info("Message received: {}", messageQueue.content());
+        } else {
+            log.warn("Received null messageQueue");
+        }
     }
 
+    /*
+    @SqsListener("fila-teste")
+    public void listen(Message messageQueue) {
+        log.info("Start consumer");
+        if(messageQueue.content() != null) {
+            log.info("Message received: {}", messageQueue.content());
+        } else {
+            log.warn("Received null messageQueue");
+        }
+    }*/
 }
