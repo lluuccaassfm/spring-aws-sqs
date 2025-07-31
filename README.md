@@ -8,7 +8,7 @@ Este é um projeto em Java utilizando Spring Boot que realiza a integração com
 
 - Java 21
 - Spring Boot
-- AWS SDK for Java
+- Spring Cloud AWS
 - Maven
 
 ## Pré-requisitos
@@ -58,7 +58,7 @@ Esse endpoint permite que você envie uma mensagem para a fila SQS.
 
 **Requisição**
 
-- **URL**: `http://localhost:8080/send-message`
+- **URL**: `http://localhost:8080/sqs/send-message`
 - **Método**: POST
 - **Headers**:
     - Content-Type: application/json
@@ -66,14 +66,14 @@ Esse endpoint permite que você envie uma mensagem para a fila SQS.
 
 ```json
 {
-  "message": "Sua mensagem aqui"
+  "content": "Sua mensagem aqui"
 }
 ```
 
 **Exemplo de cURL**:
 
 ```bash
-curl -X POST http://localhost:8080/send-message -H "Content-Type: application/json" -d '{"message":"Olá, SQS!"}'
+curl -X POST http://localhost:8080/sqs/send-message -H "Content-Type: application/json" -d '{"content":"Olá, SQS!"}'
 ```
 
 ## Consumer
